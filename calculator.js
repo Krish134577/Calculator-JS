@@ -20,6 +20,7 @@ buttons.forEach((ele) => {
             if(true != isNaN(ele.innerHTML) || ele.innerHTML == "*" || ele.innerHTML == "+" || ele.innerHTML == "-" || ele.innerHTML == "/" || ele.innerHTML == "%"){
             numArray.push(`${ele.innerHTML}`);
             input.value += `${ele.innerHTML}`;
+            input.scrollLeft = input.scrollWidth;     // For automatic scroll and to visible current value in input if user entered long expresion in input.
             count++;                      // LOGIC- line 12-14 is used to add value i.e number or operator inside input or numarray.
 
             if(ele.innerHTML == "%"){
@@ -138,102 +139,137 @@ buttons.forEach((ele) => {
 
 
         if(ele.innerHTML === "="){                  // If user hit equal button.
-            numArray = []; 
+            numArray = [];
+            
+              
 
-            if(value1 == ""){                  // Line 129 to 138     // calculate base value before entering operator or may be it can result  and percent is the value entered after entering operator like +,-,*,/.
-            base = Number(result);
-            percent = Number(value2);
-            per_convert_val = Number(( base * percent) / 100);
+            if(per_exsist == true){ 
+                if(value1 == ""){                                           // Line 129 to 138     // calculate base value before entering operator or may be it can result  and percent is the value entered after entering operator like +,-,*,/.
+                    base = Number(result);
+                    percent = Number(value2);
+                    per_convert_val = Number(( base * percent) / 100);
             }
             else if(typeof(Number(value1)) == "number"){
-            base = Number(value1);
-            percent = Number(value2);
-            per_convert_val = Number(( base * percent) / 100);
-            }
-
-            if(per_exsist == true){                              // In above if elseif the value that is base and percent is usefull if this condition become true means % exisit in the input of calculator.                                 
+                    base = Number(value1);
+                    percent = Number(value2);
+                    per_convert_val = Number(( base * percent) / 100);
+            }                                                              // In above if elseif the value that is base and percent is usefull if this condition become true means % exisit in the input of calculator.                                 
                 handlepercent(base, percent , per_convert_val);
                  
             }
+            else{
+                 try{                                                      // For any type of calculation +,-,/,* the try and catch help to calculate value. if the input contain % sign means user want to calculate % value or to perform any operation % sign then above if block from line 145 to 158 is usefull. 
+                     
+                result = eval(input.value);
+                input.value = Number(result);
+                numArray = [result];
+                value1 ='';
+                value2 = '';
+                operator = '';
 
-            else{                                                // If user what to do calulation and % does not exisit in input and if calculation done before means user have result of some cal and he/she want to calculate other value then the code inside this else is usefull.
-                 if(typeof(result) === "number"){                             // 
-                if(operator === "*" && typeof(Number(value2)) == "number"){
-                 input.value = result * Number(value2);
-                 numArray.push(result * Number(value2));
-                 result = result * Number(value2);
-                 value2 = "";
-                 operator = '';
-               }
-               else if(operator === "+" && typeof(Number(value2)) == "number"){
-                 input.value = result + Number(value2);
-                 numArray.push(result + Number(value2));
-                 result = result + Number(value2);
-                 value2 = "";
-                 operator = '';
-               }
-               else if(operator === "-" && typeof(Number(value2)) == "number"){
-                 input.value = result - Number(value2);
-                 numArray.push(result - Number(value2));
-                 result = result - Number(value2);
-                 value2 = "";
-                 operator = '';
-               }
-               else if(operator === "/" && typeof(Number(value2)) == "number"){
-                 input.value = result / Number(value2);
-                 numArray.push(result / Number(value2));
-                 result = result / Number(value2);
-                 value2 = "";
-                 operator = '';
-               }
+            }
+            catch{
+                input.value = "error";
+            }
+            }
+
+              
+            // Above code inside this if block is optimize version of below code.
+
+            // if(value1 == ""){                                 //line 145 to 158 code is same as this code from line 177 to 192.    // calculate base value before entering operator or may be it can result  and percent is the value entered after entering operator like +,-,*,/.
+            // base = Number(result);
+            // percent = Number(value2);
+            // per_convert_val = Number(( base * percent) / 100);
+            // }
+            // else if(typeof(Number(value1)) == "number"){
+            // base = Number(value1);
+            // percent = Number(value2);
+            // per_convert_val = Number(( base * percent) / 100);
+            // }
+
+            // if(per_exsist == true){                              // In above if elseif the value that is base and percent is usefull if this condition become true means % exisit in the input of calculator.                                 
+            //     handlepercent(base, percent , per_convert_val);
+                 
+            // }
+
+            // else{                                                // If user what to do calulation and % does not exisit in input and if calculation done before means user have result of some cal and he/she want to calculate other value then the code inside this else is usefull.
+            //      if(typeof(result) === "number"){                             // 
+            //     if(operator === "*" && typeof(Number(value2)) == "number"){
+            //      input.value = result * Number(value2);
+            //      numArray.push(result * Number(value2));
+            //      result = result * Number(value2);
+            //      value2 = "";
+            //      operator = '';
+            //    }
+            //    else if(operator === "+" && typeof(Number(value2)) == "number"){
+            //      input.value = result + Number(value2);
+            //      numArray.push(result + Number(value2));
+            //      result = result + Number(value2);
+            //      value2 = "";
+            //      operator = '';
+            //    }
+            //    else if(operator === "-" && typeof(Number(value2)) == "number"){
+            //      input.value = result - Number(value2);
+            //      numArray.push(result - Number(value2));
+            //      result = result - Number(value2);
+            //      value2 = "";
+            //      operator = '';
+            //    }
+            //    else if(operator === "/" && typeof(Number(value2)) == "number"){
+            //      input.value = result / Number(value2);
+            //      numArray.push(result / Number(value2));
+            //      result = result / Number(value2);
+            //      value2 = "";
+            //      operator = '';
+            //    }
                     
-            } 
-            else{                                                        // The code inside usefull at every first calculation in calculator because the first calculation happen is due to this code where user enter some no is store in value1 var operator entered is store in operator var and value entered after op is store in value2 var the result get calculated.
-                if((typeof(Number(value1)) == 'number') && (typeof(Number(value2)) == 'number')){
-                    input.value = "";
-                    numArray = []; 
-               if(operator === "*"){
+            // } 
+            // else{                                                                                       // The code inside usefull at every first calculation in calculator because the first calculation happen is due to this code where user enter some no is store in value1 var operator entered is store in operator var and value entered after op is store in value2 var the result get calculated.
+            // //     if((typeof(Number(value1)) == 'number') && (typeof(Number(value2)) == 'number')){
+            // //         input.value = "";
+            // //         numArray = []; 
+            // //    if(operator === "*"){
                 
-                result = Number(value1) * Number(value2);
-                input.value = result;                              // Input.value is only to show value to user input
-                numArray.push(result);                             // numArray is used to store current calculation in array.
-                value1 = '';
-                value2 = '';
-                operator = '';
-               }
-               else if(operator === "+"){ 
+            // //     result = Number(value1) * Number(value2);
+            // //     input.value = result;                              // Input.value is only to show value to user input
+            // //     numArray.push(result);                             // numArray is used to store current calculation in array.
+            // //     value1 = '';
+            // //     value2 = '';
+            // //     operator = '';
+            // //    }
+            // //    else if(operator === "+"){ 
                 
-                result = Number(value1) + Number(value2);
-                input.value = result;
-                numArray.push(result);
-                value1 = '';
-                value2 = '';
-                operator = '';
+            // //     result = Number(value1) + Number(value2);
+            // //     input.value = result;
+            // //     numArray.push(result);
+            // //     value1 = '';
+            // //     value2 = '';
+            // //     operator = '';
                 
-               }
-               else if(operator === "-"){ 
+            // //    }
+            // //    else if(operator === "-"){ 
 
-                result = Number(value1) - Number(value2);
-                input.value = result;
-                numArray.push(result);
-                value1 = '';
-                value2 = '';
-                operator = '';
+            // //     result = Number(value1) - Number(value2);
+            // //     input.value = result;
+            // //     numArray.push(result);
+            // //     value1 = '';
+            // //     value2 = '';
+            // //     operator = '';
 
-               }
-               else if(operator === "/"){ 
+            // //    }
+            // //    else if(operator === "/"){ 
                 
-                result = Number(value1) / Number(value2);
-                input.value = result;
-                numArray.push(result);
-                value1 = '';
-                value2 = '';
-                operator = '';
+            // //     result = Number(value1) / Number(value2);
+            // //     input.value = result;
+            // //     numArray.push(result);
+            // //     value1 = '';
+            // //     value2 = '';
+            // //     operator = '';
 
-               }
-            }
-            }
-            }
+            // //    }
+            // // } 
+            // }
+            // }
 
             
         }
