@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mozilla+Text:wght@200..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(45deg, #0a0a0a, #3a4452); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+#user{
+    font-family: "Mozilla Text", sans-serif;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.calculator{ 
+    height: 440px;
+    width: 300px;
+    border: 2px solid #717377;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    display: grid;
+    grid-template-areas: "input" "row1" "row2" "row3" "row4" "row5"; 
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 85px repeat(5, 1fr);
+    padding: 5px 10px 6px 8px; 
+    background-color: transparent;
+    box-shadow: 0px 0px 12px 0px #717377;
+}
+
+#Enter-input{ 
+    border: none; 
+    width: 100%;  
+    background-color: #30353b;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 2rem; 
+    grid-area: "input";
+    grid-area: 1/1/2/5; 
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-align: right;
+    padding: 15px; 
+} 
+
+ 
+.clrG{
+    color: rgb(34, 255, 0) !important ;  
+     
+}
+ 
+.GC4{                              /*GC4 means grid coloumn 4 where all iteam are arranged in column like flex direction property*/
+    grid-column: 4;
+    font-size: 1.5rem !important; 
+     
+}
+
+.GR3{                          /*GR3 means grid row 3 where all ele having GR3 class are arrange in grid row 3*/
+    grid-row: 3;
+}
+
+.GR4{                              /*GR4 means grid row 4 where all ele having GR4 class are arrange in grid row 4*/
+    grid-row: 4; 
+}
+
+.GR5{                              /*GR5 means grid row 5 where all ele having GR5 class are arrange in grid row 5*/
+    grid-row: 5; 
+}
+.GR6{
+    grid-row: 6;                  /*GR6 means grid row 6 where all ele having GR6 class are arrange in grid row 6*/
+}
+
+
+.button{
+    height: 55px;
+    width: 55px; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    border: none;
+    position: relative;
+    left: 18%; 
+    border-radius: 50%;
+    font-size: 1.2rem; 
+    font-family: "Mozilla Text", sans-serif; 
+    padding: 15px;
+    cursor: pointer;
+    color: #fff;
+    background: transparent;
+    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.1);
+    
+}
+
+.button:hover{
+    background-color: #282f38;
+}
+
+#btn-equal{
+    background-color: rgb(230, 142, 0);
+
+}
+ 
